@@ -39,7 +39,7 @@ public class MusicGO extends Application {
 
 		stage = primaryStage;
 
-		sendMinePlayController("page mine");
+		sendMinePlayController();
 		stage.show();
 	}
 
@@ -58,17 +58,17 @@ public class MusicGO extends Application {
 	 * MinePlayへの遷移
 	 * @params lt ラベルテキスト
 	 */
-	public void sendMinePlayController(String lt) {
+	public void sendMinePlayController() {
 		stage.setTitle("MinePlay");
 
-		MinePlayController ctr = new MinePlayController(lt);
+		ApplicationController ctr = new ApplicationController("fxml/minePlay.fxml");
 		this.replaceSceneContent(ctr);
 	}
 
-	public void sendOtherPlayController(String lt) {
+	public void sendOtherPlayController() {
 		stage.setTitle("OtherPlay");
 
-		OtherPlayController ctr = new OtherPlayController(lt);
+		ApplicationController ctr = new ApplicationController("fxml/otherPlay.fxml");
 		this.replaceSceneContent(ctr);
 	}
 	/**

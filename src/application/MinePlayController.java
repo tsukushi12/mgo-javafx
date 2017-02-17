@@ -1,65 +1,39 @@
 package application;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class MinePlayController extends AnchorPane implements Initializable {
 	/**
+	 * application
 	 * xml values
 	 */
-	@FXML Label label;
+	@FXML private Pane target;
 
 	/**
-	 * instance member
-	 * @prams ラベルテキスト
+	 * minePlay
+	 * fxml values
 	 */
-	public String labelText;
-
+	@FXML private Label label;
 	/**
 	 * initializer
 	 * @param lt ラベルテキスト
 	 */
-	public MinePlayController(String lt) {
-		this.labelText = lt;
+	public MinePlayController() {
 
-		loadFXML();
+
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		label.setText(labelText);
+		label.setText("test");
 	}
 
-	/**
-	 * FXMLのロード
-	 */
-	public void loadFXML() {
-		FXMLLoader fxmlLoader = new FXMLLoader(MusicGO.class.getResource("minePlay.fxml"));
-	        fxmlLoader.setRoot(this);
-
-	        // 自分自身をコントロールとして設定
-	        fxmlLoader.setController(this);
-
-	        try {
-	            fxmlLoader.load();
-	        } catch (IOException exception) {
-	            throw new RuntimeException(exception);
-	        }
-	}
-
-	/**
-	 *ボタンクリックアクション
-	 */
-	@FXML
-	protected void handleButtonAction() {
-		MusicGO.getInstance().sendOtherPlayController("page2です");
-	}
 
 }
