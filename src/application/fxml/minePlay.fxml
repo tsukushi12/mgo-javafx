@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="application.MinePlayController" prefHeight="121.0" prefWidth="141.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.MinePlayController">
   <children>
-    <Label layoutX="57.0" layoutY="53.0" fx:id="label" />
+    <ScrollPane focusTraversable="false" layoutX="0.0" layoutY="20.0" prefHeight="380.0" prefWidth="500.0" vbarPolicy="NEVER">
+      <content>
+        <VBox fx:id="btnTarget" prefHeight="380.0" prefWidth="480.0">
+          <padding>
+            <Insets />
+          </padding>
+        </VBox>
+      </content>
+    </ScrollPane>
+    <Label fx:id="label" layoutX="1.0" layoutY="3.0" prefHeight="20.0" prefWidth="500.0" />
   </children>
 </AnchorPane>
-

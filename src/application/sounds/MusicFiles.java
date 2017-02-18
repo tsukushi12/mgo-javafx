@@ -5,8 +5,6 @@ package application.sounds;
 
 import java.io.File;
 
-import application.MusicGO;
-
 /**
  * @author yuki
  *
@@ -18,7 +16,7 @@ public class MusicFiles {
 	 * @params MusicFiles singleton class of this class
 	 * @params dir MusicFileDirectry
 	 */
-	final static String rootpath = MusicGO.class.getResource("music/").toString();
+	final static String rootpath = "bin/application/music";
 	private static MusicFiles musicFiles = new MusicFiles();
 	public File dir;
 
@@ -28,25 +26,62 @@ public class MusicFiles {
 	 * output All file name
 	 */
 	public static void main(String[] args) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		MusicFiles mf = MusicFiles.getInstance();
+		mf.output();
 	}
+
+	/**
+	 * singleton instance
+	 */
 	private MusicFiles() {
 		dir = new File(rootpath);
 	}
 
+	/**
+	 * @return ThisInstance
+	 */
+
 	public static MusicFiles getInstance() {
 		return musicFiles;
 	}
+
+	/**
+	 * instanceの再定義　ディレクトリの再読み込み
+	 * @params ThisInstance
+	 */
+	public static MusicFiles reGetInstance() {
+		musicFiles = new MusicFiles();
+		return musicFiles;
+	}
+
+	/**
+	 * @return ファイル一覧の取得（ファイル型）
+	 */
 	public File[] getFileNmaes() {
 		return dir.listFiles();
 	}
 
+	/**
+	 * @return ファイル一覧　文字列
+	 */
 	public String[] getFileNames(){
 		return dir.list();
 	}
 
+	/**
+	 * @return テスト用音楽ファイルの取得
+	 */
 	public File getTestFile(){
 		return dir.listFiles()[0];
 	}
+
+	/**
+	 * test output
+	 */
+    public void output(){
+        String files[] = dir.list();
+        for (String file: files){
+            System.out.println(file);
+        }
+    }
 }

@@ -17,6 +17,7 @@ public class ApplicationController extends AnchorPane implements Initializable {
 	 */
 	@FXML private Pane target;
 
+
 	/**
 	 * initializer
 	 * @param filename targetに埋め込むFXMLファイル名
@@ -40,6 +41,14 @@ public class ApplicationController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	  this.getStylesheets().add(MusicGO.class.getResource("css/application.css").toExternalForm());
+	}
+
+	public static AnchorPane getMusicButton(String name) throws IOException{
+		FXMLLoader buttonLoader = new FXMLLoader(MusicGO.class.getResource("fxml/musicButton.fxml"));
+		AnchorPane pane = buttonLoader.load();
+		ButtonController ctr = buttonLoader.getController();
+		ctr.setMusicName(name);
+		return pane;
 	}
 
 	/**

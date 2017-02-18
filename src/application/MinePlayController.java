@@ -1,39 +1,46 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.sounds.MusicFiles;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MinePlayController extends AnchorPane implements Initializable {
 	/**
 	 * application
 	 * xml values
 	 */
-	@FXML private Pane target;
 
+	private String[] musicFiles = MusicFiles.getInstance().getFileNames();
 	/**
 	 * minePlay
 	 * fxml values
 	 */
 	@FXML private Label label;
-	/**
-	 * initializer
-	 * @param lt ラベルテキスト
-	 */
-	public MinePlayController() {
-
-
-	}
+	@FXML private VBox btnTarget;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		label.setText("test");
+		label.setText("再生リスト");
+		for (String name: musicFiles) {
+			this.addButton(name);
+		}
+
 	}
 
+
+	public void addButton(String filename) {
+	       try {
+	    	btnTarget.getChildren().add(ApplicationController.getMusicButton(filename));
+	       } catch (IOException exception) {
+	            throw new RuntimeException(exception);
+	        }
+	}
 
 }
