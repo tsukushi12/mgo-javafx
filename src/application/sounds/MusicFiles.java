@@ -4,6 +4,7 @@
 package application.sounds;
 
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * @author yuki
@@ -16,9 +17,10 @@ public class MusicFiles {
 	 * @params MusicFiles singleton class of this class
 	 * @params dir MusicFileDirectry
 	 */
-	final static String rootpath = "bin/application/music";
+	public final static String rootpath = "bin/application/music/";
 	private static MusicFiles musicFiles = new MusicFiles();
 	public File dir;
+	public HashMap<String, PCMReader> map;
 
 	/**
 	 * main method (test)
@@ -35,6 +37,7 @@ public class MusicFiles {
 	 */
 	private MusicFiles() {
 		dir = new File(rootpath);
+
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class MusicFiles {
 	/**
 	 * @return ファイル一覧の取得（ファイル型）
 	 */
-	public File[] getFileNmaes() {
+	public File[] getFiles() {
 		return dir.listFiles();
 	}
 
@@ -71,8 +74,8 @@ public class MusicFiles {
 	/**
 	 * @return テスト用音楽ファイルの取得
 	 */
-	public File getTestFile(){
-		return dir.listFiles()[0];
+	static File getTestFile(){
+		return new MusicFiles().getFiles()[1];
 	}
 
 	/**

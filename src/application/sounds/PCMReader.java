@@ -1,10 +1,11 @@
 package application.sounds;
 
-import javax.sound.sampled.AudioFormat;
-
 abstract class PCMReader {
 
-	abstract public byte[] read();
+	public byte[] frame;
+	public Format format;
 
-	abstract public AudioFormat getAudioFormat();
+	abstract public byte[] read() throws Exception;
+
+	abstract public Format getFormat();
 }

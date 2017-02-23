@@ -3,9 +3,13 @@
  */
 package application;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.sounds.MinePCM;
+import application.sounds.MusicFiles;
+import application.sounds.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,6 +41,14 @@ public class ButtonController extends AnchorPane implements Initializable {
 
 	@FXML
 	protected void playButtonAction() {
-
+		try {
+			File f = new File(MusicFiles.rootpath + filename);
+			MinePCM mpcm = new MinePCM(f);
+			Player player = Player.getInstance();
+			player.setLine(mpcm);
+			player.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -4,6 +4,10 @@
 package application.sounds;
 
 import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 
 /**
  * @author yuki
@@ -12,13 +16,11 @@ import javax.sound.sampled.AudioFormat;
 public class Player {
 
 	/**
-	 * @params line
 	 * @params forma
 	 *
 	 * @params thread
 	 */
-	private PCMReader line;
-	private AudioFormat format;
+	public Format format;
 	private PlayThread thread;
 
 	private static Player player = new Player();
@@ -35,17 +37,23 @@ public class Player {
 	private Player() {
 	}
 
-	public void setLine(PCMReader l, AudioFormat f) throws InterruptedException {
-		if (thread.isAlive()) {
+	public void setLine(PCMReader reader) {
+		try {
+		if (thread != null && thread.isAlive()) {
 			thread.destroy();
 			thread.join();
-			line = l;
-			format = f;
-			thread = new PlayThread();
+			thread = new PlayThread(reader);
 
 		} else {
-			thread = new PlayThread();
+			thread = new PlayThread(reader);
 		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void start() {
+		if (thread != null)
+			thread.start();
 	}
 
 	public void pause() {
@@ -54,6 +62,13 @@ public class Player {
 
 	public static Player getInstance() {
 		return player;
+	}
+	public Format getFormat() {
+		return format;
+	}
+
+	public boolean isPlayMine() {
+		return format.isMine() && thread != null && thread.isPlay();
 	}
 
 
@@ -64,19 +79,45 @@ public class Player {
 		 */
 		public boolean isPlay;
 		public boolean isAlive;
-
+		private SourceDataLine line;
+		private PCMReader stream;
 		@Override
 		public void run() {
-			while (isAlive) {
+			try {
 				while (isAlive) {
+					while (isPlay) {
+						byte[] b = stream.read();
+						if (b == null){
+							this.destroy();
+							break;
+						}
 
+						line.write(b, 0, b.length);
 
+						if (format.isMine()) {
+
+						}
+
+					}
+					Thread.sleep(10);
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
-		public PlayThread() {
+		public PlayThread(PCMReader reader) throws LineUnavailableException {
 			isPlay = true;
 			isAlive = true;
+			DataLine.Info info = new DataLine.Info(SourceDataLine.class, (AudioFormat)reader.getFormat());
+			line = (SourceDataLine) AudioSystem.getLine(info);
+			stream = reader;
+
+			line.open();
+			line.start();
+		}
+
+		public boolean isPlay() {
+			return isPlay && isAlive();
 		}
 
 		/**
@@ -86,6 +127,8 @@ public class Player {
 			isPlay = !isPlay;
 		}
 		public void destroy() {
+			line.close();
+			isPlay = false;
 			isAlive = false;
 		}
 	}
