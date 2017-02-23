@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="musicGO.jnlp">
+  <information>
+    <title>musicGO</title>
+    <vendor>yuki</vendor>
+    <description>musicGO</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="musicGO.jar" size="3821904" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="application.MusicGO"  name="musicGO" />
+  <update check="background"/>
+</jnlp>
