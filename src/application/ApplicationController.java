@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.sounds.Resouce;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,11 +44,11 @@ public class ApplicationController extends AnchorPane implements Initializable {
 	  this.getStylesheets().add(MusicGO.class.getResource("css/application.css").toExternalForm());
 	}
 
-	public static AnchorPane getMusicButton(String name) throws IOException{
+	public static AnchorPane getMusicButton(String name, Resouce resouce) throws IOException{
 		FXMLLoader buttonLoader = new FXMLLoader(MusicGO.class.getResource("fxml/musicButton.fxml"));
 		AnchorPane pane = buttonLoader.load();
 		ButtonController ctr = buttonLoader.getController();
-		ctr.setMusicName(name);
+		ctr.setMusicName(name, resouce);
 		return pane;
 	}
 

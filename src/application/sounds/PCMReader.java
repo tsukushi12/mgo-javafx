@@ -1,6 +1,6 @@
 package application.sounds;
 
-abstract class PCMReader {
+public abstract class PCMReader {
 
 	public byte[] frame;
 	public Format format;

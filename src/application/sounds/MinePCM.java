@@ -41,7 +41,6 @@ public class MinePCM extends PCMReader {
 		stream = AudioSystem.getAudioInputStream(file);
 		format = Format.getFormat(stream.getFormat());
 		format.setTitle(file.getName());
-		format.setIsMine(true);
 		frame = format.getFrame();
 	}
 

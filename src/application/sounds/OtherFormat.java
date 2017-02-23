@@ -7,15 +7,15 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.Map;
 
-import application.socket.DGReceiver;
-
 /**
  * @author yuki
  *
  */
 public class OtherFormat extends Format {
 
-	InetAddress senderIp;
+	public InetAddress senderIp;
+	public long createTime;
+	public boolean isMine = false;
 	/**
 	 * @param sampleRate
 	 * @param sampleSizeInBits
@@ -59,8 +59,8 @@ public class OtherFormat extends Format {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-    public OtherFormat getOtherFormat(DatagramPacket p) {
-        String values[] = p.getData().toString().split(",");
+    public static OtherFormat getOtherFormat(DatagramPacket p) {
+        String values[] = new String(p.getData(), 0, p.getData().length).split(",");
         InetAddress i = p.getAddress();
         OtherFormat of = new OtherFormat(
         		toEncoding(values[0]),
@@ -73,15 +73,18 @@ public class OtherFormat extends Format {
         		);
         of.setTitle(values[7]);
         of.setIp(i);
+        of.setTime();
         return of;
     }
 
     public void setIp(InetAddress i) {
     	senderIp = i;
     }
-    public DGReceiver getSocket() {
-
+    public void setTime() {
+    	createTime = System.currentTimeMillis();
     }
-
+    public long getTime() {
+    	return createTime;
+    }
 
 }

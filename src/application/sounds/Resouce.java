@@ -1,14 +1,10 @@
-/**
- *
- */
 package application.sounds;
 
 /**
  * @author yuki
  *
  */
-abstract class Resouce {
+public abstract class Resouce {
 
-
-	abstract public PCMReader getResouce();
+	abstract public PCMReader getResouce(String name) throws Exception;
 }

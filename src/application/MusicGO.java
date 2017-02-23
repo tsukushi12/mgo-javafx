@@ -3,7 +3,11 @@
  */
 package application;
 
+import application.socket.RecvForMeta;
+import application.socket.SendToMeta;
+import application.sounds.Player;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,6 +26,8 @@ public class MusicGO extends Application {
 	 * ステージ
 	 */
 	private Stage stage;
+	public static SendToMeta sender = new SendToMeta();
+	public static RecvForMeta receiver = new RecvForMeta();
 
 	/**
 	 * @return MusicGO instance
@@ -38,6 +44,16 @@ public class MusicGO extends Application {
 		instance = this;
 
 		stage = primaryStage;
+		sender.start();
+		receiver.start();
+
+
+		stage.setOnCloseRequest((req) ->{
+			sender.end();
+			receiver.end();
+			Player.getInstance().end();
+			Platform.exit();
+		});
 
 		sendMinePlayController();
 		stage.show();

@@ -4,13 +4,12 @@
 package application.sounds;
 
 import java.io.File;
-import java.util.HashMap;
 
 /**
  * @author yuki
  *
  */
-public class MusicFiles {
+public class MusicFiles extends Resouce{
 
 	/**
 	 * @params rootpath 音楽ファイルの場所
@@ -20,7 +19,6 @@ public class MusicFiles {
 	public final static String rootpath = "bin/application/music/";
 	private static MusicFiles musicFiles = new MusicFiles();
 	public File dir;
-	public HashMap<String, PCMReader> map;
 
 	/**
 	 * main method (test)
@@ -39,6 +37,13 @@ public class MusicFiles {
 		dir = new File(rootpath);
 
 	}
+
+	@Override
+	public PCMReader getResouce(String name) throws Exception {
+		MinePCM mpcm = new MinePCM(new File(rootpath + name));
+		return mpcm;
+	}
+
 
 	/**
 	 * @return ThisInstance
@@ -74,7 +79,7 @@ public class MusicFiles {
 	/**
 	 * @return テスト用音楽ファイルの取得
 	 */
-	static File getTestFile(){
+	public static File getTestFile(){
 		return new MusicFiles().getFiles()[1];
 	}
 

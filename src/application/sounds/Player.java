@@ -9,6 +9,8 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
+import application.socket.DGSender;
+
 /**
  * @author yuki
  *
@@ -24,6 +26,7 @@ public class Player {
 	private PlayThread thread;
 
 	private static Player player = new Player();
+	private DGSender sender = DGSender.getInstance();
 
 	/**
 	 * main methd
@@ -47,6 +50,7 @@ public class Player {
 		} else {
 			thread = new PlayThread(reader);
 		}
+		format = reader.format;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,6 +58,11 @@ public class Player {
 	public void start() {
 		if (thread != null)
 			thread.start();
+	}
+
+	public void end() {
+		if (thread != null)
+			thread.destroy();
 	}
 
 	public void pause() {
@@ -68,7 +77,7 @@ public class Player {
 	}
 
 	public boolean isPlayMine() {
-		return format.isMine() && thread != null && thread.isPlay();
+		return thread != null && format.isMine && thread.isPlay();
 	}
 
 
@@ -94,8 +103,8 @@ public class Player {
 
 						line.write(b, 0, b.length);
 
-						if (format.isMine()) {
-
+						if (format.isMine) {
+							sender.write(b, DGSender.getFrameDest());
 						}
 
 					}

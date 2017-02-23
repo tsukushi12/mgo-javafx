@@ -1,9 +1,12 @@
 package application.socket;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
 import application.sounds.Format;
+import application.sounds.MinePCM;
+import application.sounds.MusicFiles;
 import application.sounds.Player;
 
 /**
@@ -15,6 +18,22 @@ public class SendToMeta extends Thread{
 	public Player player = Player.getInstance();
 	public DGSender sender = DGSender.getInstance();
 	public InetSocketAddress dest;
+	public boolean isEnd = true;
+
+	public static void main(String args[]) {
+	try {
+		File f = MusicFiles.getTestFile();
+		MinePCM mpcm = new MinePCM(f);
+		Player player = Player.getInstance();
+		player.setLine(mpcm);
+	//	player.start();
+
+		SendToMeta sender = new SendToMeta();
+		sender.start();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
 
 	public SendToMeta() {
 		try {
@@ -24,10 +43,14 @@ public class SendToMeta extends Thread{
 		}
 	}
 
+	public void end() {
+		isEnd = false;
+	}
+
 	@Override
 	public void run() {
 		try {
-			while (true) {
+			while (isEnd) {
 				if (player.isPlayMine()) {
 					Format f = player.getFormat();
 					sender.write(f.toByte(), dest);

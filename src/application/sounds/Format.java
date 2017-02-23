@@ -18,7 +18,7 @@ public class Format extends AudioFormat {
 	 */
 	public static final int milliSec = 40;
 	public String title;
-	public boolean isMine = false;
+	public boolean isMine = true;
 
 	/**
 	 * @param sampleRate
@@ -77,14 +77,6 @@ public class Format extends AudioFormat {
 
     public void setTitle(String t){
     	title = t;
-    }
-
-    public void setIsMine(boolean b) {
-    	isMine = b;
-    }
-
-    public boolean isMine() {
-    	return isMine();
     }
 
     @Override

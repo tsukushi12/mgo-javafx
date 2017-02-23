@@ -43,4 +43,8 @@ public class DGReceiver {
     	sock.receive(packet);
     	return packet;
     }
+
+    public void close() {
+    	sock.close();
+    }
 }

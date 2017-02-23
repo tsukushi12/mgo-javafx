@@ -17,7 +17,7 @@ public class MinePlayController extends AnchorPane implements Initializable {
 	 * xml values
 	 */
 
-	private String[] musicFiles = MusicFiles.getInstance().getFileNames();
+	private MusicFiles musicFiles = MusicFiles.getInstance();
 	/**
 	 * minePlay
 	 * fxml values
@@ -28,7 +28,7 @@ public class MinePlayController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		label.setText("再生リスト");
-		for (String name: musicFiles) {
+		for (String name: musicFiles.getFileNames()) {
 			this.addButton(name);
 		}
 
@@ -37,7 +37,7 @@ public class MinePlayController extends AnchorPane implements Initializable {
 
 	public void addButton(String filename) {
 	       try {
-	    	btnTarget.getChildren().add(ApplicationController.getMusicButton(filename));
+	    	btnTarget.getChildren().add(ApplicationController.getMusicButton(filename, musicFiles));
 	       } catch (IOException exception) {
 	            throw new RuntimeException(exception);
 	        }
