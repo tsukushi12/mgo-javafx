@@ -7,10 +7,10 @@ import application.socket.RecvForMeta;
 import application.socket.SendToMeta;
 import application.sounds.Player;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 /**
  * @author yuki
  *
@@ -48,11 +48,11 @@ public class MusicGO extends Application {
 		receiver.start();
 
 
-		stage.setOnCloseRequest((req) ->{
+		stage.setOnCloseRequest((WindowEvent t) ->{
 			sender.end();
 			receiver.end();
 			Player.getInstance().end();
-			Platform.exit();
+			System.exit(0);
 		});
 
 		sendMinePlayController();

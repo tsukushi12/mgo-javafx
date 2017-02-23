@@ -1,6 +1,7 @@
 package application.socket;
 
 import java.net.DatagramPacket;
+import java.net.InetAddress;
 
 import application.sounds.OtherFormat;
 import application.sounds.OtherResouce;
@@ -39,7 +40,7 @@ public class RecvForMeta extends Thread {
 		try {
 			while (isEnd) {
 				DatagramPacket p = receiver.recv(buf);
-				if (java.net.InetAddress.getLocalHost() != p.getAddress()){
+				if (InetAddress.getLocalHost().equals(p.getAddress().getAddress())){
 					others.add(OtherFormat.getOtherFormat(p));
 					others.varid();
 				}
@@ -47,6 +48,7 @@ public class RecvForMeta extends Thread {
 			receiver.close();
 		}catch (Exception e) {
 			e.printStackTrace();
+			receiver.close();
 		}
 	}
 
